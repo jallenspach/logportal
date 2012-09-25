@@ -146,6 +146,7 @@ public class SolrRequest {
         }
         
 
+	log.debug("You would think there's a new comment here, but there is ... not?");
 /*        return "<param name=\"programTxt\" value=\"" + programTxt + "\" />\n" + 
                 "<param name=\"severityTxt\" value=\"" + severityTxt + "\" />\n" +
                 "<param name=\"msgTxt\" value=\"" + msgTxt + "\" />\n" +
