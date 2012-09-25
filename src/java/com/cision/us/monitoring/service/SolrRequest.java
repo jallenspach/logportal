@@ -144,13 +144,6 @@ public class SolrRequest {
             log.error("Exception when getting Solr data", e);
             results = "<error>General error</error>";
         }
-        
-
-/*        return "<param name=\"programTxt\" value=\"" + programTxt + "\" />\n" + 
-                "<param name=\"severityTxt\" value=\"" + severityTxt + "\" />\n" +
-                "<param name=\"msgTxt\" value=\"" + msgTxt + "\" />\n" +
-                "<param name=\"generatedTxt\" value=\"" + generatedTxt + "\" />\n" +
-                "<param name=\"url\" value=\"" + url + "\" />\n";*/
         log.debug("return xml {}", results);
         return results;
     }
