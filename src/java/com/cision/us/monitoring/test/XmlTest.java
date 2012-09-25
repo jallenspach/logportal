@@ -57,11 +57,6 @@ public class XmlTest {
                         "</item>");
             }
             
-/*            URLConnection conn = new URL(url).openConnection();
-            conn.setRequestProperty("Accept-Charset", "UTF-8");
-            InputStream response = conn.getInputStream();*/
-            
-            
             results = "<max>" + handler.resultcount().toString() + "</max><items>" + results + "</items>";
             
         } catch (IllegalArgumentException e) {
