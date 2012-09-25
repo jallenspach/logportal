@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link type="text/css" href="css/redmond/jquery-ui-1.8.21.custom.css" rel="Stylesheet" />	
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
+        <script type="text/javascript" src="js/loadSolrData.js"></script>
+        
+        <style>
+            /* http://stackoverflow.com/questions/1964839/jquery-please-wait-loading-animation */
+            .modal {
+                display:    none;
+                position:   fixed;
+                z-index:    1000;
+                top:        0;
+                left:       0;
+                height:     100%;
+                width:      100%;
+                background: rgba( 255, 255, 255, .8 ) 
+                            url('images/ajax-loader.gif') 
+                            50% 50% 
+                            no-repeat;
+            }
+            /* When the body has the loading class, we turn
+                the scrollbar off with overflow:hidden */
+            body.loading {
+                overflow: hidden;   
+            }
+
+            /* Anytime the body has the loading class, our
+                modal element will be visible */
+            body.loading .modal {
+                display: block;
+            }
+        </style>
+            
+    <script>
+        
+        var ctxtData = Array(), facData = Array(), fromData = Array(), 
+            hnameData = Array(), idData = Array(), pgmData = Array(),
+            sevData = Array(), tagData = Array(), msgData = Array(),
+            dateData = Array();
+        
+        function list_init(contentIndex) {
+            if (contentIndex == 0) {
+                ctxtData = Array();
+                facData = Array();
+                fromData = Array();
+                hnameData = Array();
+                idData = Array();
+                pgmData = Array();
+                sevData = Array();
+                tagData = Array();
+                msgData = Array();
+                dateData = Array();
+            }
+            
+            $("body").addClass("loading");
+        }
+        
+        function list_add(obj) {
+            ctxtData.push(obj.context);
+            facData.push(obj.facility);
+            fromData.push(obj.from);
+            hnameData.push(obj.hostname);
+            idData.push(obj.id);
+            pgmData.push(obj.program);
+            sevData.push(obj.severity);
+            tagData.push(obj.tag);
+            msgData.push(obj.msg);
+            dateData.push(obj.timestamp);
+        }
+
+        function setSort(sValue) {
+//            alert('sort value = ' + sortValue);
+            sortValue = sValue;
+            generate_solr_url();
+        }
+        
+        function list_render() {
+            var d = document.getElementById('maindiv');
+            
+            var divHtml = '<table border><tr>';
+//            alert('current sort value = ' + sortValue);
+
+//            if (sortValue == 'generated+asc')
+//                divHtml += '<th> <a href="javascript:void(0)" onClick="setSort(\'generated+desc\')">DATE</a>&uarr;</th>';
+//            else if (sortValue == 'generated+desc')
+//                divHtml += '<th> <a href="javascript:void(0)" onClick="setSort(\'generated+asc\')">DATE</a>&darr;</th>';
+//            else
+//                divHtml += '<th> <a href="javascript:void(0)" onClick="setSort(\'generated+desc\')">DATE</a></th>';
+
+            divHtml += '<td><strong>DATE</strong></td><td><strong>HOSTNAME</strong></td><td><strong>LEVEL</strong></td><td><strong>MESSAGE</strong></td></tr>';
+            
+            
+            if (ctxtData.length == 0) {
+                divHtml += '<tr><td colspan="4"> No data found </td> </tr>';
+            } else {
+            
+                for (var n = 0; n < ctxtData.length; ++n) {
+                    divHtml += '<tr><td><nobr>' + dateData[n] + '</nobr></td><td>' + hnameData[n] + '</td><td>' + sevData[n] + '</td><td><pre>' +
+                        msgData[n] + '</pre></td></tr>';
+                }
+            }
+            
+            divHtml += '</table>';
+            d.innerHTML = divHtml;
+            $("body").removeClass("loading");
+        }
+        
+        
+        function loadMore() {
+            if (startRow < maxRows)
+                generate_solr_url();
+        }
+        
+        $(window).scroll(function() {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                loadMore();
+            }
+        });
+        
+    </script> 
+    </head>
+    <body>
+        <div id="maindiv"></div>
+        <div id="loadingDiv" class="modal"></div>
+    </body>
+</html>
