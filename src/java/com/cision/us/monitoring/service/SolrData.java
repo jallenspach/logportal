@@ -44,45 +44,6 @@ public class SolrData {
         //List<String> returnValue = (List<String>) new ArrayList();
         ArrayList<String> returnValue = new ArrayList<String>(Arrays.asList("abrtd","acpid","anacron","auditd","bonobo-activation-server","console-kit-daemon","crond","crontab","dhclient","init","kernel","local4","mswineventlog","networkmanager","ntpd","oddjobd","polkitd(authority=local)","postfix","restorecond","rhnsd","rpc.idmapd","rpcbind","rsyslogd","sendmail","smbd","snmpd","sshd","su","sudo","unix_chkpwd","xinetd"));
 
-        /*
-        try {
-            HttpURLConnection conn = null;
-            URL sUrl = new URL(solrUrl);
-            conn = (HttpURLConnection) sUrl.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setDoOutput(true);
-            conn.setReadTimeout(30000);
-            conn.connect();
-            
-            SAXParserFactory spf = SAXParserFactory.newInstance();
-            SAXParser sp = spf.newSAXParser();
-            
-            SolrFacetHandler pgmHandler = new SolrFacetHandler("program");
-            sp.parse(conn.getInputStream(), pgmHandler);
-            returnValue = pgmHandler.facets();
-            
-            
-//            BufferedReader rd  = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//            StringBuilder sb = new StringBuilder();
-//            String line;
-//        
-//            while ((line = rd.readLine()) != null)
-//            {
-//                sb.append(line);
-//            }
-//        
-//          System.out.println(sb.toString());
-//          
-//          Pattern p = Pattern.compile("<int name=\"([^\"]+)\">");
-//          Matcher m = p.matcher(sb);
-//          m.find(); // skip "status"
-//          m.find(); // skip "QTime"
-//          while (m.find()) {
-//              System.out.println(m.group(1));
-//              returnValue.add(m.group(1));
-//          }
-          
-          
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
